@@ -99,6 +99,9 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
+        var interactableItem = col.gameObject.GetComponent<IInteractableItem>();
+        interactableItem?.Act();
+        
         if (!col.gameObject.CompareTag("Ground")) return;
         
         isGrounded = true;
