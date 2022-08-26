@@ -1,22 +1,23 @@
-﻿using System;
-using UnityEditor.Animations;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 10;
     [SerializeField] private float jumpSpeed = 10;
     [SerializeField] private float fallSpeed = 5;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask ground;
     
     private Rigidbody2D _rigidbody2D;
     private SpriteRenderer _spriteRenderer;
     private Animator _animatorController;
-    private bool isGrounded = false;
-    private bool isDead = false;
-    private bool fallDamageIsActive = false;
+    private bool _isDead;
+    private bool fallDamageIsActive;
+    private static readonly int HasDied = Animator.StringToHash(HasDiedAnimation);
+    private static readonly int IsRunning = Animator.StringToHash(IsRunningAnimation);
 
-    private const string isRunningAnimation = "isRunning";
-    private const string hasDiedAnimation = "hasDied";
+    private const string IsRunningAnimation = "isRunning";
+    private const string HasDiedAnimation = "hasDied";
 
 
     private void Awake()
@@ -38,8 +39,8 @@ public class Player : MonoBehaviour
 
     private bool Die()
     {
-        if (!isDead) return false;
-        _animatorController.SetTrigger(hasDiedAnimation);
+        if (!_isDead) return false;
+        _animatorController.SetTrigger(HasDied);
         return true;
     }
 
@@ -55,26 +56,32 @@ public class Player : MonoBehaviour
     {
         if (currentDirection == 0)
         {
-            _animatorController.ResetTrigger(isRunningAnimation);
+            _animatorController.ResetTrigger(IsRunning);
         }
         else
         {
-            _animatorController.SetTrigger(isRunningAnimation);
+            _animatorController.SetTrigger(IsRunning);
         }
     }
 
     private void Jump()
     {
         bool isJumping = Input.GetButtonDown("Jump");
+        bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, ground);
+
+        Debug.Log("isJumping " + isJumping);
+        Debug.Log("isGrounded " + isGrounded);
+        
         if (isJumping && isGrounded)
         {
+            Debug.Log("We are jumping");
             _rigidbody2D.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
         };
     }
 
     private void Fall()
     {
-        if (!isFalling()) return;
+        if (!IsFalling()) return;
         
         _rigidbody2D.AddForce(Vector2.down * fallSpeed);
         if (_rigidbody2D.velocity.y < -30.0)
@@ -83,7 +90,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private bool isFalling()
+    private bool IsFalling()
     {
         return _rigidbody2D.velocity.y < 0;
     }
@@ -93,29 +100,18 @@ public class Player : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Obstacle"))
         {
-            isDead = true;
+            _isDead = true;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
+        InteractWithItem(col);
+    }
+    
+    private static void InteractWithItem(Collision2D col)
+    {
         var interactableItem = col.gameObject.GetComponent<IInteractableItem>();
         interactableItem?.Act();
-        
-        if (!col.gameObject.CompareTag("Ground")) return;
-        
-        isGrounded = true;
-        if (fallDamageIsActive)
-        {
-            isDead = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
-        }
     }
 }
