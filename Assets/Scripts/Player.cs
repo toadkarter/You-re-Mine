@@ -69,24 +69,19 @@ public class Player : MonoBehaviour
         bool isJumping = Input.GetButtonDown("Jump");
         bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, ground);
 
-        Debug.Log("isJumping " + isJumping);
-        Debug.Log("isGrounded " + isGrounded);
-        
         if (isJumping && isGrounded)
         {
-            Debug.Log("We are jumping");
             _rigidbody2D.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
-        };
+        }
     }
 
     private void Fall()
     {
         if (!IsFalling()) return;
-        
         _rigidbody2D.AddForce(Vector2.down * fallSpeed);
         if (_rigidbody2D.velocity.y < -30.0)
         {
-            fallDamageIsActive = true;
+            _isDead = true;
         }
     }
 
