@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -7,15 +9,20 @@ public class Player : MonoBehaviour
     [SerializeField] private float fallSpeed = 5;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask ground;
+    [SerializeField] private AudioClip _deathAudio;
+    [SerializeField] private GameObject _winnerText;
     
     private Rigidbody2D _rigidbody2D;
     private SpriteRenderer _spriteRenderer;
     private Animator _animatorController;
+    private AudioSource _audioSource;
     private bool _isDead;
     private bool fallDamageIsActive;
     private static readonly int HasDied = Animator.StringToHash(HasDiedAnimation);
     private static readonly int IsRunning = Animator.StringToHash(IsRunningAnimation);
-
+    private bool playedDeathSound = false;
+    
+    
     private const string IsRunningAnimation = "isRunning";
     private const string HasDiedAnimation = "hasDied";
 
@@ -25,12 +32,17 @@ public class Player : MonoBehaviour
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animatorController = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     }
     
     // Update is called once per frame
     private void Update()
     {
-        if (Die()) return;
+        if (Die())
+        {
+            StartCoroutine(SetNextLevel());
+            return;
+        };
         
         Move();
         Jump();
@@ -40,7 +52,12 @@ public class Player : MonoBehaviour
     private bool Die()
     {
         if (!_isDead) return false;
-        _animatorController.SetTrigger(HasDied);
+        _animatorController.Play("Death");
+
+        if (playedDeathSound) return true;
+        
+        _audioSource.PlayOneShot(_deathAudio, 1f);
+        playedDeathSound = true;
         return true;
     }
 
@@ -108,5 +125,16 @@ public class Player : MonoBehaviour
     {
         var interactableItem = col.gameObject.GetComponent<IInteractableItem>();
         interactableItem?.Act();
+    }
+
+    private IEnumerator SetNextLevel()
+    {
+        yield return new WaitForSeconds(1f);
+        
+        _winnerText.SetActive(true);
+
+        yield return new WaitForSeconds(1f);
+        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
