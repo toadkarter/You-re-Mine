@@ -4,5 +4,23 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Spikes1.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Fall2.unity
+    guid: 53ab952858e907d4f94efd4c31d583eb
+  - enabled: 1
+    path: Assets/Scenes/LittleDrop3.unity
+    guid: 61486c5a7eb6ccf4caf4abe0d10d1558
+  - enabled: 1
+    path: Assets/Scenes/Bounce4.unity
+    guid: 1de969ba2145df94e88e5c2e2eb63fac
+  - enabled: 1
+    path: Assets/Scenes/TheRightDirection5.unity
+    guid: e5d828c90105f574e8909eef7ab271b9
+  - enabled: 1
+    path: Assets/Scenes/Push6.unity
+    guid: 779d5286cb9a5624180d79b9badf38f9
   m_configObjects: {}
