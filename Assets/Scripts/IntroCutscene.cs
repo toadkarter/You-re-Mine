@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,6 +8,14 @@ public class IntroCutscene : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI[] cutSceneLines;
     [SerializeField] private GameObject title;
+
+    private AudioSource _audioSource;
+    private bool _audioSourceIsPlaying;
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
 
     // Update is called once per frame
     private void Update()
@@ -21,6 +30,12 @@ public class IntroCutscene : MonoBehaviour
 
     private IEnumerator FadeIn(float timeIncrement, float delay, TextMeshProUGUI[] lines)
     {
+        if (!_audioSourceIsPlaying)
+        {
+            _audioSource.Play();
+            _audioSourceIsPlaying = true;
+        }
+
         foreach (var line in lines)
         {
             while (line.color.a < 1.0f)
