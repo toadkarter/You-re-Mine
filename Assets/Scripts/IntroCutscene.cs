@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class IntroCutscene : MonoBehaviour
 {
@@ -11,6 +12,11 @@ public class IntroCutscene : MonoBehaviour
     private void Update()
     {
         StartCoroutine(FadeIn(0.01f, 2.0f, cutSceneLines));
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 
     private IEnumerator FadeIn(float timeIncrement, float delay, TextMeshProUGUI[] lines)
@@ -31,6 +37,10 @@ public class IntroCutscene : MonoBehaviour
         DisableLineVisibility(lines);
 
         title.SetActive(true);
+
+        yield return new WaitForSeconds(delay);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     private static void IncrementTextVisibility(float timeIncrement, TextMeshProUGUI line)
