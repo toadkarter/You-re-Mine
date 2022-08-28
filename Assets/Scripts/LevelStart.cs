@@ -20,6 +20,7 @@ public class LevelStart : MonoBehaviour
         {
             possessHim.gameObject.SetActive(!isActive);
             isActive = !isActive;
+            yield return new WaitForSeconds(0.1f);
         }
         gameObject.SetActive(false);
         yield return null;

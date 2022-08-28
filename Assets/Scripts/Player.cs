@@ -13,11 +13,12 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _winnerText;
     
     private Rigidbody2D _rigidbody2D;
+    private CircleCollider2D _fallDamageCollider;
     private SpriteRenderer _spriteRenderer;
     private Animator _animatorController;
     private AudioSource _audioSource;
     private bool _isDead;
-    private bool fallDamageIsActive;
+    private bool _fallDamageIsActive = false;
     private static readonly int HasDied = Animator.StringToHash(HasDiedAnimation);
     private static readonly int IsRunning = Animator.StringToHash(IsRunningAnimation);
     private bool playedDeathSound = false;
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _fallDamageCollider = GetComponent<CircleCollider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animatorController = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
@@ -103,7 +105,12 @@ public class Player : MonoBehaviour
         _rigidbody2D.AddForce(Vector2.down * fallSpeed);
         if (_rigidbody2D.velocity.y < -30.0)
         {
-            _isDead = true;
+            _fallDamageIsActive = true;
+        }
+
+        if (_rigidbody2D.velocity.y > -30.0)
+        {
+            _fallDamageIsActive = false;
         }
     }
 
@@ -124,8 +131,17 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D col)
     {
         InteractWithItem(col);
+        CheckForFallDamage(col);
     }
-    
+
+    private void CheckForFallDamage(Collision2D col)
+    {
+        if (_fallDamageIsActive && _fallDamageCollider.IsTouchingLayers(ground))
+        {
+            _isDead = true;
+        }
+    }
+
     private static void InteractWithItem(Collision2D col)
     {
         var interactableItem = col.gameObject.GetComponent<IInteractableItem>();
