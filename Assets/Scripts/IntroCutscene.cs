@@ -9,9 +9,13 @@ public class IntroCutscene : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI[] cutSceneLines;
     [SerializeField] private GameObject title;
+    [SerializeField] private GameObject skipText;
+    [SerializeField] private AudioClip soundtrack;
+    [SerializeField] private AudioClip stinger;
 
     private AudioSource _audioSource;
-    private bool _audioSourceIsPlaying;
+    private bool _soundtrackIsPlaying;
+    private bool _cutSceneIsFinished = false;
 
     private void Awake()
     {
@@ -21,20 +25,25 @@ public class IntroCutscene : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        StartCoroutine(FadeIn(0.01f, 2.0f, cutSceneLines));
+        StartCoroutine(PlayCutScene(0.01f, 2.0f, cutSceneLines));
 
         if (Input.GetButtonDown("Jump"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
+
+        if (_cutSceneIsFinished)
+        {
+            LoadNextScene();
+        }
     }
 
-    private IEnumerator FadeIn(float timeIncrement, float delay, TextMeshProUGUI[] lines)
+    private IEnumerator PlayCutScene(float timeIncrement, float delay, TextMeshProUGUI[] lines)
     {
-        if (!_audioSourceIsPlaying)
+        if (!_soundtrackIsPlaying)
         {
-            _audioSource.Play();
-            _audioSourceIsPlaying = true;
+            _audioSource.PlayOneShot(soundtrack);
+            _soundtrackIsPlaying = true;
         }
 
         foreach (var line in lines)
@@ -52,10 +61,19 @@ public class IntroCutscene : MonoBehaviour
 
         DisableLineVisibility(lines);
 
+        skipText.SetActive(false);
         title.SetActive(true);
+        FadeOut(2.0f);
 
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(delay + 1);
 
+        _cutSceneIsFinished = true;
+
+        yield return null;
+    }
+
+    private static void LoadNextScene()
+    {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
@@ -71,5 +89,18 @@ public class IntroCutscene : MonoBehaviour
         {
             line.enabled = false;
         }
+    }
+
+    private IEnumerator FadeOut(float fadeTime)
+    {
+        float startVolume = _audioSource.volume;
+
+        while (_audioSource.volume > 0)
+        {
+            _audioSource.volume -= startVolume * Time.deltaTime / fadeTime;
+            yield return null;
+        }
+        
+        _audioSource.Stop();
     }
 }

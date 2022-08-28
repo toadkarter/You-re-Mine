@@ -4410,6 +4410,9 @@ MonoBehaviour:
   - {fileID: 1757746693}
   - {fileID: 835970010}
   title: {fileID: 1064080967}
+  skipText: {fileID: 125994810}
+  soundtrack: {fileID: 8300000, guid: 7431f43c947d7ef4e94611d4e9d79839, type: 3}
+  stinger: {fileID: 8300000, guid: f7b54272a1567ba4382c783f528850d0, type: 3}
 --- !u!82 &518321952
 AudioSource:
   m_ObjectHideFlags: 0
