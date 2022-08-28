@@ -41,4 +41,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DrillUp11.unity
     guid: 80d461a0eaba7fd4184aa928c595cd8b
+  - enabled: 1
+    path: Assets/Scenes/Ending.unity
+    guid: 6691b630f10d029419f3b12f1007fd1f
   m_configObjects: {}
