@@ -42,7 +42,12 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(SetNextLevel());
             return;
-        };
+        }
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
         
         Move();
         Jump();
@@ -133,7 +138,7 @@ public class Player : MonoBehaviour
         
         _winnerText.SetActive(true);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }

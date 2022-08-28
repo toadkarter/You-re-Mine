@@ -155,6 +155,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _deathAudio: {fileID: 8300000, guid: 4c99fdc947fd1b04e9e9f3b7722e4c43, type: 3}
+  _winnerText: {fileID: 6412487455784334961, guid: 36192247adb599a4a8f95aba4a975f91,
+    type: 3}
 --- !u!95 &3416642500155687306
 Animator:
   serializedVersion: 3
