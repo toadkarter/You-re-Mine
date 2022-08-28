@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class IntroCutscene : MonoBehaviour
 {
@@ -58,13 +59,13 @@ public class IntroCutscene : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    private static void IncrementTextVisibility(float timeIncrement, TextMeshProUGUI line)
+    private static void IncrementTextVisibility(float timeIncrement, Graphic line)
     {
         line.color = new Color(line.color.r, line.color.g, line.color.b,
             line.color.a + (Time.deltaTime * timeIncrement));
     }
 
-    private static void DisableLineVisibility(TextMeshProUGUI[] lines)
+    private static void DisableLineVisibility(IEnumerable<TextMeshProUGUI> lines)
     {
         foreach (var line in lines)
         {

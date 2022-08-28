@@ -217,6 +217,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelStart
       objectReference: {fileID: 0}
+    - target: {fileID: 487060937147492211, guid: c2669f39fc84b7545b1673199d412641,
+        type: 3}
+      propertyPath: m_text
+      value: '- Adventurer Possessed -'
+      objectReference: {fileID: 0}
+    - target: {fileID: 487060937147492211, guid: c2669f39fc84b7545b1673199d412641,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 487060937147492211, guid: c2669f39fc84b7545b1673199d412641,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 487060937147492211, guid: c2669f39fc84b7545b1673199d412641,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2669f39fc84b7545b1673199d412641, type: 3}
 --- !u!224 &8937307312953921685 stripped
