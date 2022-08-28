@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   jumpSpeed: 15
-  fallSpeed: 5
+  fallSpeed: 15
   fallDamageThreshold: -30
   groundCheck: {fileID: 3416642500192282729}
   ground:

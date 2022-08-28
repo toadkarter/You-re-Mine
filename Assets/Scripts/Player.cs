@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 10;
     [SerializeField] private float jumpSpeed = 10;
-    [SerializeField] private float fallSpeed = 5;
+    [SerializeField] private float fallSpeed = 15;
     [SerializeField] private float fallDamageThreshold = -30f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask ground;

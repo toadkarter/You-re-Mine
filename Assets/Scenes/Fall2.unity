@@ -6453,6 +6453,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3416642500155687307, guid: 103b1047cf200eb409ecf3b58006181f,
         type: 3}
+      propertyPath: fallSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3416642500155687307, guid: 103b1047cf200eb409ecf3b58006181f,
+        type: 3}
       propertyPath: _winnerText
       value: 
       objectReference: {fileID: 1121075025}
