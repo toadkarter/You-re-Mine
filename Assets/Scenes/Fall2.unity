@@ -6396,16 +6396,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3416642500155687304, guid: 103b1047cf200eb409ecf3b58006181f,
-        type: 3}
-      propertyPath: m_LinearDrag
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3416642500155687304, guid: 103b1047cf200eb409ecf3b58006181f,
-        type: 3}
-      propertyPath: m_GravityScale
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3416642500155687305, guid: 103b1047cf200eb409ecf3b58006181f,
         type: 3}
       propertyPath: m_LocalPosition.x
