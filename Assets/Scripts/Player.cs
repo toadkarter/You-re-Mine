@@ -6,8 +6,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 10;
     [SerializeField] private float jumpSpeed = 10;
-    [SerializeField] private float fallSpeed = 15;
-    [SerializeField] private float fallDamageThreshold = -30f;
+    [SerializeField] private float fallSpeed = 5;
+    [SerializeField] private float fallDamageThreshold = 30f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask ground;
     [SerializeField] private AudioClip _deathAudio;
@@ -103,13 +103,13 @@ public class Player : MonoBehaviour
     private void Fall()
     {
         if (!IsFalling()) return;
-        _rigidbody2D.AddForce(Vector2.down * fallSpeed);
-        if (_rigidbody2D.velocity.y < fallDamageThreshold)
+        _rigidbody2D.AddForce(new Vector2(_rigidbody2D.velocity.x, _rigidbody2D.velocity.y + Time.deltaTime * fallSpeed), ForceMode2D.Force);
+        if (_rigidbody2D.velocity.y < -30.0)
         {
             _fallDamageIsActive = true;
         }
-
-        if (_rigidbody2D.velocity.y > fallDamageThreshold)
+        
+        if (_rigidbody2D.velocity.y > -30.0)
         {
             _fallDamageIsActive = false;
         }
