@@ -103,7 +103,10 @@ public class Player : MonoBehaviour
     private void Fall()
     {
         if (!IsFalling()) return;
-        _rigidbody2D.AddForce(new Vector2(_rigidbody2D.velocity.x, _rigidbody2D.velocity.y + Time.deltaTime * fallSpeed), ForceMode2D.Force);
+        _rigidbody2D.AddForce(
+            new Vector2(_rigidbody2D.velocity.x, _rigidbody2D.velocity.y + Time.deltaTime * fallSpeed), 
+            ForceMode2D.Force
+            );
         if (_rigidbody2D.velocity.y < -30.0)
         {
             _fallDamageIsActive = true;
