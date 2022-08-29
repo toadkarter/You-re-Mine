@@ -274,6 +274,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3416642500155687304, guid: 103b1047cf200eb409ecf3b58006181f,
+        type: 3}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3416642500155687305, guid: 103b1047cf200eb409ecf3b58006181f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -334,6 +339,21 @@ PrefabInstance:
       propertyPath: _winnerText
       value: 
       objectReference: {fileID: 132780563}
+    - target: {fileID: 3416642500155687307, guid: 103b1047cf200eb409ecf3b58006181f,
+        type: 3}
+      propertyPath: fallMultiplier
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3416642500155687307, guid: 103b1047cf200eb409ecf3b58006181f,
+        type: 3}
+      propertyPath: lowJumpMultiplier
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3416642500155687307, guid: 103b1047cf200eb409ecf3b58006181f,
+        type: 3}
+      propertyPath: jumpVelocity
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 3416642500155687308, guid: 103b1047cf200eb409ecf3b58006181f,
         type: 3}
       propertyPath: m_Name

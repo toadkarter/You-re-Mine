@@ -101,7 +101,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
+  m_Mass: 5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -149,7 +149,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  jumpSpeed: 15
+  fallMultiplier: 20
+  lowJumpMultiplier: 10
+  jumpVelocity: 12
   fallSpeed: 15
   fallDamageThreshold: -30
   groundCheck: {fileID: 3416642500192282729}
